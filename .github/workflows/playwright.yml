@@ -4,22 +4,18 @@ on: [push]
 
 jobs:
   ui-tests:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Run UI-tests via docker-compose
         run: docker compose run regression /bin/sh -c "ls -la npm install && npx playwright test"
-
       - name: Save Allure Results
         if: always()
         run: |
           mkdir -p allure-results
           docker cp $(docker ps -qf "name=regression"):/app/allure-results ./allure-results
         shell: bash
-
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         if: always()
@@ -29,9 +25,8 @@ jobs:
 
   build-test-report:
     needs: ui-tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: always()
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -51,13 +46,13 @@ jobs:
 
   deploy-to-github-pages:
     needs: build-test-report
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: always()
     steps:
       - name: Deploy-to-GitHub-Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         env:
-          PERSONAL_TOKEN: ${{ secrets.DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+          PUBLISH_DIR: ./allure-history
