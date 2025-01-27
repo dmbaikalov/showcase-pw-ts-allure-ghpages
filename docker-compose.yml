@@ -5,8 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./tests:/app/tests 
+      - ./:/app
       - ./package.json:/app/package.json
-      - ./package-lock.json:/app/package-lock.json
     working_dir: /app
-    command: /bin/sh -c "npx playwright test --reporter=allure-playwright --output=/app/allure-results"
+    command: /bin/sh -c "ls -la && npm install && npx playwright test"
