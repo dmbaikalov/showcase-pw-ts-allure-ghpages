@@ -1,6 +1,6 @@
 services:
   regression:
-    image: mcr.microsoft.com/playwright:focal
+    image: mcr.microsoft.com/playwright:v1.50.0-focal   
     build:
       context: .
       dockerfile: Dockerfile
