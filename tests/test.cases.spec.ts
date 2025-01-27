@@ -17,8 +17,10 @@ test.afterEach(async ({ page }) => {
   )};
 });
 
-test('Signed Up page is open', {tag: "@unathorized"}, async ({ homePage }) => {
+test('Signed Up page is open', async ({ homePage, authorizationPage }) => {
   await homePage.open();
   await homePage.openSignUpPage();
-  await homePage.isOpen();
+  await homePage.isOpen(); 
+  await authorizationPage.login();
+  await authorizationPage.loginIsSuccessful();
 });

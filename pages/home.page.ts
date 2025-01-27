@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 
 export class HomePage {
-    public pagePath = '/';
+    public pagePath = process.env.BASE_URL;
     public readonly page: Page;
     private readonly productsPageLink: Locator;
     private readonly cartPageLink: Locator;
@@ -24,7 +24,7 @@ export class HomePage {
 };
 
 async open() {
-    await this.page.goto(this.pagePath);
+    await this.page.goto(this.pagePath as string);
 };
 
 async openSignUpPage() {
@@ -56,7 +56,7 @@ async openVideoTutorialsPage() {
 };
 
 async isOpen() {
-    return this.page.url().includes(this.pagePath);
+    return this.page.url().includes(this.pagePath as string);
 }
 
 };

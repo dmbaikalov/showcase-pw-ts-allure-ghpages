@@ -1,29 +1,41 @@
 import { HomePage } from "./home.page";
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 
 export class AuthorizationPage extends HomePage {
-    public pagePath = '/login';
+    public pagePath = `${process.env.BASE_URL}/login` as string;
     private readonly loginEmailField: Locator;
     private readonly loginPasswordField: Locator;
     private readonly loginButton: Locator;
     private readonly signUpEmailField: Locator;
-    private readonly signUpPasswordField: Locator;
+    private readonly signUpNameField: Locator;
     private readonly signUpButton: Locator;
+    // private readonly radioButtonTitleMr: Locator;
+    // private readonly radioButtonTitleMrs: Locator;
+    // private readonly signUpPasswordField: Locator;
+    // private readonly signUpFirstNameField: Locator;
+    // private readonly signUpLastNameField: Locator;
+    // private readonly signUpAddressField: Locator;
+    // private readonly signUpCountryDropDownMenu: Locator;
+    // private readonly signUpStateField: Locator;
+    // private readonly signUpCityField: Locator;
+    // private readonly signUpZipCodeField: Locator;
+    // private readonly signUpPhoneField: Locator;
+    // private readonly signUpCreateAccountButton: Locator;
 
 
     constructor(page: Page) {
         super(page);
-        this.loginEmailField = page.locator('input[name="email"]');
-        this.loginPasswordField = page.locator('input[name="password"]');
-        this.loginButton = page.locator('button[type="submit"]');
-        this.signUpEmailField = page.locator('input[name="email"]');
-        this.signUpPasswordField = page.locator('input[name="password"]');
-        this.signUpButton = page.locator('button[type="submit"]');
+        this.loginEmailField = page.locator('.login-form').getByRole('textbox', { name: 'Email Address' });
+        this.loginPasswordField = page.locator('.login-form').getByRole('textbox', { name: 'Password' });
+        this.loginButton = page.locator('.login-form').getByRole('button', { name: 'Login' });
+        this.signUpNameField = page.locator('.signup-form').getByRole('textbox', { name: 'Name' });
+        this.signUpEmailField = page.locator('.signup-form').getByRole('textbox', { name: 'Email Address' });
+        this.signUpButton = page.locator('.signup-form').getByRole('textbox', { name: 'Signup' });
     };
 
     async open() {
-        await this.page.goto(this.pagePath);
+        await this.page.goto(`${process.env.BASE_URL}${this.pagePath}`);
     };
 
     async loginFormFieldsAreVisible() {
@@ -34,30 +46,28 @@ export class AuthorizationPage extends HomePage {
 
     async signUpFieldsAreVisible() {
         await this.signUpEmailField.isVisible();
-        await this.signUpPasswordField.isVisible();
+        await this.signUpNameField.isVisible();
         await this.signUpButton.isVisible();
     };
 
-    async login(email: string, password: string) {
-        await this.loginEmailField.fill(email);
-        await this.loginPasswordField.fill(password);
+    async login() {
+        await this.loginEmailField.fill(process.env.USER_EMAIL as string);
+        await this.loginPasswordField.fill(process.env.USER_PASSWORD as string);
         await this.loginButton.click();
     };
 
     async signUp(email: string, password: string) {
         await this.signUpEmailField.fill(email);
-        await this.signUpPasswordField.fill(password);
+        await this.signUpNameField.fill(password);
         await this.signUpButton.click();
     };
 
     async loginIsSuccessful() {
-        await this.page.waitForNavigation();
-        await this.page.waitForURL('/');
-    };
+        await expect(this.page.url()).toBe(`${process.env.BASE_URL}`)
+    }
 
     async signUpIsSuccessful() {
-        await this.page.waitForNavigation();
-        await this.page.waitForURL('/');
+        await expect(this.page.url()).toBe(`${process.env.BASE_URL}`)
     };
 
 }

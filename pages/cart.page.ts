@@ -5,7 +5,7 @@ import { HomePage } from "./home.page";
 
 
 export class CartPage extends HomePage {
-    public pagePath = '/view_cart';
+    public pagePath = `${process.env.BASE_URL}/view_cart` as string;
     readonly proceedToCheckoutButton: Locator;
     private readonly cartItemName: Locator
     private readonly cartItemDescription: Locator

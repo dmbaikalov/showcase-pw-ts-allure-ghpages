@@ -2,17 +2,17 @@
 // import path from 'path';
 
 // const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-// const userCredentials = {
-//   username: "standard_user",
-//   password: "secret_sauce",
+// const loginUserCredentials = {
+//   email: "myemail@email.email",
+//   password: "password123",
 // }
 
 // setup('authenticate', async ({ page, context }) => {
-//   await page.goto('https://www.saucedemo.com/');
-//   await page.getByRole('textbox', { name: 'Username' }).fill(userCredentials.username);
-//   await page.getByRole('textbox', { name: 'Password' }).fill(userCredentials.password);
-//   await page.getByRole('button', { name: 'Login' }).click();
-//   await expect(page.getByRole('button', { name: 'Open Menu' })).toBeVisible();
+//   await page.goto('/login');
+//   await page.locator('.login-form').getByRole('textbox', { name: 'Email Address' }).fill(loginUserCredentials.email);
+//   await page.locator('.login-form').getByRole('textbox', { name: 'Password' }).fill(loginUserCredentials.password);
+//   await page.locator('.login-form').getByRole('button', { name: 'Login' }).click();
+//   await expect(page.url()).toBe('https://automationexercise.com/')
 //   // Modify cookie expiration to 1 day
 //   const cookies = await context.cookies();
 //   console.log(cookies);
