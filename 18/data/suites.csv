@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4533","Signed Up page is open","firefox","Mon Jan 27 23:45:41 GMT 2025","passed","Mon Jan 27 23:45:45 GMT 2025","","test.cases.spec.ts","",""
+"","5991","Signed Up page is open","webkit","Mon Jan 27 23:45:41 GMT 2025","passed","Mon Jan 27 23:45:47 GMT 2025","","test.cases.spec.ts","",""
+"","3185","Signed Up page is open","chromium","Mon Jan 27 23:45:41 GMT 2025","passed","Mon Jan 27 23:45:44 GMT 2025","","test.cases.spec.ts","",""
