@@ -4,11 +4,9 @@ WORKDIR /app
 
 COPY package.json /app/
 COPY package-lock.json /app/
-
-RUN npm install
-
 COPY . .
 
+RUN npm install
 RUN npm cache clean --force
 RUN npm init -y
 RUN apt-get update && apt-get install -y wget gnupg ca-certificates && \
